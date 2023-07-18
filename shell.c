@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * main - main function
+ * main - main function to test
  * @ac: number of command line arguments
  * @av: command line arguments
  * Return: 0 on completion
