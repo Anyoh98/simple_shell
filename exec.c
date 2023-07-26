@@ -56,6 +56,8 @@ void execute(char *command, char *args[])
 
 void sigint_handler(int signum __attribute__((unused)))
 {
+	sig_atomic_t stop __attribute__((unused)) = 0;
+
 	stop = 1;
 	signal(SIGINT, SIG_DFL);
 	kill(getpid(), SIGINT);
@@ -66,49 +68,33 @@ void sigint_handler(int signum __attribute__((unused)))
 /**
  * create_cprocess - calls the fork function
  * @command: input
+ * @shell_name: name of the shell
  * Return: void
  */
 
-void create_cprocess(char *command)
+void create_cprocess(char *command, char *shell_name)
 {
-	int status;
-	char *args[MAX_LINE_LENGTH], *full_path;
+	char *args[MAX_LINE_LENGTH];
 	pid_t pid;
 	char cmd_path[MAX_LINE_LENGTH] __attribute__((unused));
 
 	tokenize(command, args);
+	if (_strcmp(args[0], "cd") == 0)
+	{
+		my_cd(args);
+		return;
+	}
 	if (builtin_cmds(args))
 	{
 		return;
 	}
-	pid = fork();
-	if (pid < 0)
+	pid = child_process();
+	if (pid == 0)
 	{
-		perror("failed to create child process");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		if (_strchr(args[0], '/') != NULL)
-		{
-			execute(args[0], args);
-		}
-		else
-		{
-			full_path = find_path(args[0]);
-			if (full_path != NULL)
-			{
-				execute(full_path, args);
-				free(full_path);
-			}
-			else
-			{
-				printf("./hsh: No such file or directory\n");
-				exit(EXIT_FAILURE);
-			}
-		}
-		exit(EXIT_SUCCESS);
+		execute_child(shell_name, args);
 	}
 	else
-		waitpid(pid, &status, 0);
+	{
+		wait(NULL);
+	}
 }

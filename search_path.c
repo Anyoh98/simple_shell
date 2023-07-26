@@ -11,13 +11,13 @@ char *find_path(char *command)
 	char *env_path, *path;
 	char cmd_path[MAX_LINE_LENGTH];
 
-	env_path = getenv("PATH");
+	env_path = _getenv("PATH");
 	path = strtok(env_path, ":");
 	while (path != NULL)
 	{
-		strcpy(cmd_path, path);
-		strcat(cmd_path, "/");
-		strcat(cmd_path, command);
+		_strcpy(cmd_path, path);
+		_strcat(cmd_path, "/");
+		_strcat(cmd_path, command);
 
 		if (access(cmd_path, X_OK) == 0)
 		{

@@ -7,8 +7,10 @@
  * Return: 0 on completion
  */
 
+
 int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
+	sig_atomic_t stop = 0;
 	char *command;
 
 	struct sigaction sa;
@@ -25,7 +27,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	{
 		displayPrompt();
 		command = get_line();
-		create_cprocess(command);
+		create_cprocess(command, av[0]);
 		free(command);
 	}
 	/*free(command);*/
