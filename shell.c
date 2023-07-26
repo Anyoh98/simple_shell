@@ -27,6 +27,11 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	{
 		displayPrompt();
 		command = get_line();
+		if (command == NULL)
+		{
+			printf("\n");
+			break;
+		}
 		create_cprocess(command, av[0]);
 		free(command);
 	}

@@ -7,13 +7,13 @@
 
 void displayPrompt(void)
 {
-	char *prompt;
+	/*char *prompt;*/
 
 	if (isatty(STDIN_FILENO))
 	{
-		prompt = "Myshell$ ";
-		write(STDOUT_FILENO, prompt, _strlen(prompt));
-		/*printf("Myshell$ "); prints the prompt*/
+		/*prompt = "Myshell$ ";*/
+		/*write(STDOUT_FILENO, prompt, _strlen(prompt));*/
+		printf("Myshell$ "); /*prints the prompt*/
 		fflush(stdout); /*empty output buffer in file stream*/
 	}
 }
@@ -40,7 +40,8 @@ char *get_line(void)
 	}
 	if (bytesread == 0) /*eof has been reached*/
 	{
-		exit(EXIT_SUCCESS);
+		/*exit(EXIT_SUCCESS);*/
+		return (NULL);
 	}
 	buffer[bytesread] = '\0';/*add NULL character at end of buffer*/
 	line_length = _strlen(buffer);
