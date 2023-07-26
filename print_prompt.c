@@ -40,8 +40,8 @@ char *get_line(void)
 	}
 	if (bytesread == 0) /*eof has been reached*/
 	{
-		/*exit(EXIT_SUCCESS);*/
-		return (NULL);
+		printf("\n");
+		exit(EXIT_SUCCESS);
 	}
 	buffer[bytesread] = '\0';/*add NULL character at end of buffer*/
 	line_length = _strlen(buffer);
