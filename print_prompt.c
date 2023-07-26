@@ -7,9 +7,13 @@
 
 void displayPrompt(void)
 {
+	char *prompt;
+
 	if (isatty(STDIN_FILENO))
 	{
-		printf("Myshell$ "); /*prints the prompt*/
+		prompt = "Myshell$ ";
+		write(STDOUT_FILENO, prompt, _strlen(prompt));
+		/*printf(); prints the prompt*/
 		fflush(stdout); /*empty output buffer in file stream*/
 	}
 }
