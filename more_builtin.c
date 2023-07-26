@@ -95,7 +95,7 @@ int my_cd(char *args[])
 {
 	char *former_pwd;
 
-	former_pwd = _getenv("PWD");
+	former_pwd = _getenv("OLDPWD");
 	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
 	{
 		return (cd_to_userhomedir());
