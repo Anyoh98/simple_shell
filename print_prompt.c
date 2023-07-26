@@ -41,6 +41,7 @@ char *get_line(void)
 	if (bytesread == 0) /*eof has been reached*/
 	{
 		/*printf("\n");*/
+		write(STDOUT_FILENO, "\n", 1);
 		exit(EXIT_SUCCESS);
 	}
 	buffer[bytesread] = '\0';/*add NULL character at end of buffer*/
